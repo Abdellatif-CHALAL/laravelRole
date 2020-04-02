@@ -87,10 +87,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
-
-    @yield('post-js')
+    <!-- <script src="{{ asset('assets/js/app.js') }}"></script> -->
+    <!-- @yield('post-js') -->
     @yield('javascript')
 </body>
 </html>

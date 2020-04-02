@@ -156,7 +156,7 @@ class UserController extends Controller
             $documents = str_replace(' ', '', $fileNameOnly).'-'.$randomized.''.time().'.'.$extension;
             $path = $file->storeAs('public/users', $documents);
         }
-        echo $documents;
-        die;
+        // echo $documents;
+        // die;
     }
 }
