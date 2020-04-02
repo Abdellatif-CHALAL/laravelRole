@@ -28,3 +28,6 @@ Route::group(['middleware'=>['auth']],function(){
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/dropzone', 'Admin\\UserController@dropzone');
+Route::post('document_upload', 'Admin\\UserController@document_upload');
