@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2020 at 09:04 AM
+-- Generation Time: Apr 09, 2020 at 02:01 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -56,7 +56,10 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2019_08_19_000000_create_failed_jobs_table', 1),
-(3, '2020_03_30_075229_create_permission_tables', 1);
+(3, '2020_03_30_075229_create_permission_tables', 1),
+(4, '2014_10_12_100000_create_password_resets_table', 2),
+(5, '2020_04_07_083936_create_user_images_table', 2),
+(6, '2020_04_08_082403_create_user_images_table', 3);
 
 -- --------------------------------------------------------
 
@@ -87,8 +90,20 @@ CREATE TABLE `model_has_roles` (
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(5, 'App\\User', 26),
+(5, 'App\\User', 31),
 (8, 'App\\User', 29);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -181,8 +196,37 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(26, 'latif', 'latif@gmail.com', NULL, '$2y$10$nQUc53jv5BMgyvA94GvzquxGfJOPPQu/s8u/sAbnAcpWRbZa6nDGq', NULL, '2020-03-30 12:46:50', '2020-03-30 12:46:50'),
-(29, 'CHALAL Abdellatif', 'admin@gmail.com', NULL, '$2y$10$HBp3RpxZhSsqYZ3FImyPpO5v6oVFoqmII0MZYKC1qm/Av4EALxz1q', NULL, '2020-03-30 13:07:09', '2020-03-30 13:07:09');
+(29, 'CHALAL Abdellatif', 'admin@gmail.com', NULL, '$2y$10$HBp3RpxZhSsqYZ3FImyPpO5v6oVFoqmII0MZYKC1qm/Av4EALxz1q', 'ywyBg2SDvCGQTzw16Td3uZpuh3kbaSfcFJuPCxBlOjnQAqqRNZS1GjWDpwAX', '2020-03-30 13:07:09', '2020-03-30 13:07:09'),
+(31, 'latif', 'latif@gmail.com', NULL, '$2y$10$IfKDT51TphT9ORX0Os8h2OheaWcJawYauRzC3GSOEtE8cyf9wfDBK', NULL, '2020-04-09 11:04:35', '2020-04-09 11:04:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_images`
+--
+
+CREATE TABLE `user_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `documentsName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sizeFile` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_images`
+--
+
+INSERT INTO `user_images` (`id`, `user_id`, `path`, `documentsName`, `sizeFile`, `created_at`, `updated_at`) VALUES
+(82, 29, 'public/users/92459022_3756618617743383_1224428260499128320_n.jpg', '92459022_3756618617743383_1224428260499128320_n.jpg', 28747, NULL, NULL),
+(83, 29, 'public/users/92283698_147574366689402_3982482075591639040_n.jpg', '92283698_147574366689402_3982482075591639040_n.jpg', 30718, NULL, NULL),
+(84, 29, 'public/users/92572786_665822614204283_1056263523308404736_n.jpg', '92572786_665822614204283_1056263523308404736_n.jpg', 29928, NULL, NULL),
+(85, 29, 'public/users/92579635_1325928314270380_3446108361890725888_n.jpg', '92579635_1325928314270380_3446108361890725888_n.jpg', 29721, NULL, NULL),
+(86, 29, 'public/users/92664701_905637013235005_1711845110871752704_n.jpg', '92664701_905637013235005_1711845110871752704_n.jpg', 29546, NULL, NULL),
+(87, 29, 'public/users/92799548_706433150125815_4604695838894063616_n.jpg', '92799548_706433150125815_4604695838894063616_n.jpg', 21350, NULL, NULL),
+(88, 29, 'public/users/92810202_254822372367058_6347729005109575680_n.jpg', '92810202_254822372367058_6347729005109575680_n.jpg', 31221, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -215,6 +259,12 @@ ALTER TABLE `model_has_roles`
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
 -- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
@@ -241,6 +291,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `user_images`
+--
+ALTER TABLE `user_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -254,13 +310,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -272,7 +328,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `user_images`
+--
+ALTER TABLE `user_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- Constraints for dumped tables

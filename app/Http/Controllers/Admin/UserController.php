@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use DB;
 use Hash;
 use Input;
-    
+use App\UserImage;
 class UserController extends Controller
 {
     /**
@@ -138,25 +138,5 @@ class UserController extends Controller
         return redirect('admin/user')->with('flash_message', 'User deleted!');
     }
 
-
-    public function dropzone() {
-        return view('file.dropzone');
-    }
-
-
-
-    public function document_upload(Request $request) {
-
-        if($request->hasFile('file')){
-            $file = $request->file('file');
-            $completeFileName = $file->getClientOriginalName();
-            $fileNameOnly = pathinfo($completeFileName, PATHINFO_FILENAME);
-            $extension = $file->getClientOriginalExtension();
-            $randomized = rand();
-            $documents = str_replace(' ', '', $fileNameOnly).'-'.$randomized.''.time().'.'.$extension;
-            $path = $file->storeAs('public/users', $documents);
-        }
-        // echo $documents;
-        // die;
-    }
+    
 }

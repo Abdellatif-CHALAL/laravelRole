@@ -25,9 +25,14 @@ Route::group(['middleware'=>['role:super-admin','auth']],function(){
 
 Route::group(['middleware'=>['auth']],function(){
 	Route::view('/admin','admin.dashboard');
+	Route::get('admin/file/{userId}', 'Admin\\FileController@index');
+	Route::get('/create', 'Admin\\FileController@create');
+	Route::get('/show/{userId}', 'Admin\\FileController@show');
+	Route::delete('/delete/{userId}', 'Admin\\FileController@destroy');
+	Route::post('document_upload/{userId}', 'Admin\\FileController@document_upload');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/dropzone', 'Admin\\UserController@dropzone');
-Route::post('document_upload', 'Admin\\UserController@document_upload');
+
+// Route::resource('admin/file/create', 'Admin\\FileController@create');
